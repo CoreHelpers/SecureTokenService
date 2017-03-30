@@ -1,0 +1,13 @@
+version: 1.0.{build}
+build_script:
+- cmd: >-
+    dotnet restore
+
+
+    dotnet build -c Release
+
+
+    nuget pack CoreHelpers.AspNetCore.SecureTokenService.nuspec -Version %APPVEYOR_BUILD_VERSION% -Verbosity detailed
+artifacts:
+- path: '*.nupkg'
+  name: NuGetPackage
