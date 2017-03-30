@@ -49,5 +49,16 @@ namespace CoreHelpers.AspNetCore.SecureTokenService.Sample
 			else
 				return null;
 		}
+
+		public ClaimsPrincipal GetClientCredentialsUser(OAuth2Client client)
+		{
+			var identity = new ClaimsIdentity();
+			identity.AddClaim(new Claim("ccf", "1"));
+			                  
+			var principal = new ClaimsPrincipal();
+			principal.AddIdentity(identity);
+
+			return principal;
+      }
 	}
 }

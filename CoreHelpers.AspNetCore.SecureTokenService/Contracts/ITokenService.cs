@@ -16,5 +16,7 @@ namespace CoreHelpers.AspNetCore.SecureTokenService
 		void StoreCode(ClaimsPrincipal user, string code);
 
 		ClaimsPrincipal ConsumeCode(string code);
+
+		ClaimsPrincipal GetClientCredentialsUser(OAuth2Client client);
 	}
 }

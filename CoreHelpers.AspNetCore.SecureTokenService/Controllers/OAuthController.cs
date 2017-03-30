@@ -84,7 +84,10 @@ namespace CoreHelpers.AspNetCore.SecureTokenService
 			{
 				case "authorization_code":
 					grantService = new GrantCodeService();
-					break;				
+					break;	
+				case "client_credentials":
+					grantService = new GrantClientCredentialsService();
+					break;
 			}
 
 			// check if we found a grant service
