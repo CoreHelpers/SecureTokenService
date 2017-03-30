@@ -19,6 +19,6 @@
     </dependencies>
   </metadata>
   <files>
-  	<file src="bin\CoreHelpers.AspNetCore.SecureTokenService\CoreHelpers.AspNetCore.SecureTokenService\bin\Release\netstandard1.6\*.dll" target="lib\netstandard1.6" />    
+  	<file src="CoreHelpers.AspNetCore.SecureTokenService\bin\Release\netstandard1.6\*.dll" target="lib\netstandard1.6" />    
   </files>
 </package>
