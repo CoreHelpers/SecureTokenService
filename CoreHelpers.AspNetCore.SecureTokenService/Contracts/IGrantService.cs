@@ -7,5 +7,7 @@ namespace CoreHelpers.AspNetCore.SecureTokenService
 	internal interface IGrantService
 	{
 		Dictionary<string, string> ExecuteAuthorizeOperation(ClaimsPrincipal user, OAuth2Client client, ITokenService tokenService);
+
+		Object ExecuteTokenOperation(OAuth2Client client, ITokenService tokenService, string optionalCode);
 	}
 }

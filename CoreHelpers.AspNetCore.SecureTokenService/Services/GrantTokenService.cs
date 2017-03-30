@@ -15,40 +15,28 @@ namespace CoreHelpers.AspNetCore.SecureTokenService
 		/// <returns>The authorize operation.</returns>
 		/// <param name="user">User.</param>
 		/// <param name="client">Client.</param>
-		/// <param name="state">State.</param>
+		/// <param name="tokenService">TokenService.</param>
 		public Dictionary<string, string> ExecuteAuthorizeOperation(ClaimsPrincipal user, OAuth2Client client, ITokenService tokenService)
 		{
 			// give the custom implementation a chance to adapt the claims
 			var claims = tokenService.GetTokenClaims(user);
 
-			// generate the signing credentails 
-			var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(client.ClientSecret));
-			var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
-
-			// define the expired time 
-			var expires = DateTime.UtcNow.AddHours(24);
-
-			// generate the JWT token 
-			var token = new JwtSecurityToken(
-				issuer: tokenService.GetTokenIssuer(),
-				audience: tokenService.GetTokenIssuer(),
-		  		claims: claims,
-				notBefore: DateTime.UtcNow.AddMinutes(-15),
-				expires: DateTime.UtcNow.AddHours(24),
-				signingCredentials: credentials
-			);
-
-			// generate the encided token
-			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
+			// issue the token 
+			var issuedToken = TokenIssueService.IssueToken(claims, tokenService.GetTokenIssuer(), tokenService.GetTokenIssuer(), 24 * 60 * 60, client.ClientSecret);
 
 			// generate the result
 			var result = new Dictionary<string, string>();
-			result.Add("token_type", "Bearer");
-			result.Add("access_token", encodedJwt);
-			result.Add("expires_in", Convert.ToInt64((expires - DateTime.UtcNow).TotalSeconds).ToString());
+			result.Add("token_type", issuedToken.TokenType);
+			result.Add("access_token", issuedToken.TokenValue);
+			result.Add("expires_in", Convert.ToInt64((issuedToken.Expires - DateTime.UtcNow).TotalSeconds).ToString());
 
 			// done
 			return result;
+		}
+
+		public object ExecuteTokenOperation(OAuth2Client client, ITokenService tokenService, string optionalCode)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

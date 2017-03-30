@@ -3,7 +3,8 @@ namespace CoreHelpers.AspNetCore.SecureTokenService
 {
 	internal enum nTokenServiceErrors
 	{
-		ErrorMissingRedirectUri		= 100001
+		ErrorMissingRedirectUri		= 100001,
+		ErrorMissingGrantType 		= 200001
 	}
 
 

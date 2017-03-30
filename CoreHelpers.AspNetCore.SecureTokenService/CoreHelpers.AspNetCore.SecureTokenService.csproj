@@ -11,7 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Controllers\oAuth2\" />
     <Folder Include="Models\" />
     <Folder Include="Contracts\" />
     <Folder Include="Services\" />

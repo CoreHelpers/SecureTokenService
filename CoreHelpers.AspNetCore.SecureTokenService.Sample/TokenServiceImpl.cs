@@ -7,6 +7,8 @@ namespace CoreHelpers.AspNetCore.SecureTokenService.Sample
 {
 	public class TokenServiceImpl : ITokenService
 	{
+		private Dictionary<string, ClaimsPrincipal> _codeCache = new Dictionary<string, ClaimsPrincipal>();
+
 		public OAuth2Client FindClientById(string clientId)
 		{
 			return new OAuth2Client()
@@ -29,6 +31,23 @@ namespace CoreHelpers.AspNetCore.SecureTokenService.Sample
 		public string GetTokenIssuer()
 		{
 			return "sts.acme.org";
+		}
+
+		public string GetTokenAudience() {
+			return "api.acme.org";
+		}
+			
+		public void StoreCode(ClaimsPrincipal user, string code)
+		{
+			_codeCache.Add(code, user);	
+		}
+
+		public ClaimsPrincipal ConsumeCode(string code)
+		{
+			if (_codeCache.ContainsKey(code))
+				return _codeCache[code];
+			else
+				return null;
 		}
 	}
 }

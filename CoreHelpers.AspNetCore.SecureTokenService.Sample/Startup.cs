@@ -64,11 +64,11 @@ namespace CoreHelpers.AspNetCore.SecureTokenService.Sample
 
             app.UseMvc(routes =>
             {
+				app.UseSecureTokenService(routes);
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-				app.UseSecureTokenService(routes);
             });
         }
     }

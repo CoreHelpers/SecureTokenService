@@ -12,7 +12,13 @@ namespace CoreHelpers.AspNetCore.SecureTokenService
 			routeBuilder.MapRoute(
 				name: "oauth2_authorize",
 				template: routePrefix + "/issue/oauth2/authorize",
-  				defaults: new { controller = "Authorize", action = "Authorize" }
+  				defaults: new { controller = "OAuth", action = "Authorize" }
+			);
+
+			routeBuilder.MapRoute(
+				name: "oauth2_token",
+				template: routePrefix + "/issue/oauth2/token",
+  				defaults: new { controller = "OAuth", action = "Token" }
 			);
 
 			return app;
